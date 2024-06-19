@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
+import { githubApi } from "../../apis/githubApi";
 
 const getLabelsIssues = async () => {
-  const res = await fetch("https://github.com/facebook/react/issues");
-  const data = await res.json();
+  const { data } = await githubApi.get("/labels");
   return data;
 };
 
