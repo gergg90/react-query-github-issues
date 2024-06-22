@@ -1,6 +1,18 @@
+import { useQuery } from "@tanstack/react-query";
+import { githubApi } from "../../apis/githubApi";
 import { IssueItem } from "./IssueItem";
 
+const getIssues = async () => {
+  const { data } = await githubApi.get("/issues");
+  return data;
+};
+
 export const IssueList = () => {
+  const issuesQuery = useQuery({
+    queryKey: ["issues"],
+    queryFn: getIssues,
+  });
+
   return (
     <div className="card border-white">
       <div className="card-header bg-dark">
