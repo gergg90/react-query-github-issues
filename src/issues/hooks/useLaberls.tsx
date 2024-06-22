@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { githubApi } from "../../apis/githubApi";
 import { sleep } from "../../helpers/sleep";
-import { Label } from "../interfaces/label";
+import { Label } from "../interfaces";
 
 const getLabelsIssues = async (): Promise<Label[]> => {
   await sleep(1);
