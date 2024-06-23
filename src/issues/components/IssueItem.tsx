@@ -1,4 +1,5 @@
 import { FiCheckCircle, FiInfo, FiMessageSquare } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 import { Issue, State } from "../interfaces";
 
 interface Props {
@@ -15,16 +16,19 @@ const getDayAgo = (dateString: Date): string => {
 };
 
 export const IssueItem = ({ issue }: Props) => {
+  const navigate = useNavigate();
+
   return (
-    <div className="card mb-2 issue">
+    <div
+      onClick={() => navigate(`/issues/issue/${issue.number}`)}
+      className="card mb-2 issue"
+    >
       <div className="card-body d-flex align-items-center">
         {issue.state === State.Open ? (
           <FiInfo size={30} color="red" />
         ) : (
           <FiCheckCircle size={30} color="green" />
         )}
-
-        {/*  */}
 
         <div className="d-flex flex-column flex-fill px-2">
           <span>{issue.title}</span>
