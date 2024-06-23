@@ -1,6 +1,20 @@
 import { FiInfo, FiMessageSquare } from "react-icons/fi";
+import { Issue } from "../interfaces";
 
-export const IssueItem = () => {
+interface Props {
+  issue: Issue;
+}
+
+const getDayAgo = (dateString: Date): string => {
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffTime = Math.abs(now.getTime() - date.getTime());
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 6 * 24));
+
+  return `${diffDays} days ago`;
+};
+
+export const IssueItem = ({ issue }: Props) => {
   return (
     <div className="card mb-2 issue">
       <div className="card-body d-flex align-items-center">
@@ -8,23 +22,20 @@ export const IssueItem = () => {
         {/* <FiCheckCircle size={30} color="green" /> */}
 
         <div className="d-flex flex-column flex-fill px-2">
-          <span>
-            Suggestion: why not make accessing and changing the state possible
-            globally?
-          </span>
+          <span>{issue.title}</span>
           <span className="issue-subinfo">
-            #25581 opened 2 days ago by{" "}
-            <span className="fw-bold">segfaulty1</span>
+            #{issue.number} {getDayAgo(issue.created_at)} by{" "}
+            <span className="fw-bold">{issue.user.login}</span>
           </span>
         </div>
 
         <div className="d-flex align-items-center">
           <img
-            src="https://avatars.githubusercontent.com/u/1933404?v=4"
+            src={issue.user.avatar_url}
             alt="User Avatar"
             className="avatar"
           />
-          <span className="px-2">2</span>
+          <span className="px-2">{issue.comments}</span>
           <FiMessageSquare />
         </div>
       </div>
