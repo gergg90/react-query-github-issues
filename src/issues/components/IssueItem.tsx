@@ -59,6 +59,7 @@ export const IssueItem = ({ issue }: Props) => {
             #{issue.number} opened {getDayAgo(issue.created_at)} by{" "}
             <span className="fw-bold">{issue.user.login}</span>
           </span>
+          <span>xx</span>
         </div>
 
         <div className="d-flex align-items-center">
