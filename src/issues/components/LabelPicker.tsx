@@ -6,10 +6,7 @@ interface Props {
   onChange: (label: string) => void;
 }
 
-export const LabelPicker = ({
-  selectedLabels: selectedLabels,
-  onChange,
-}: Props) => {
+export const LabelPicker = ({ selectedLabels, onChange }: Props) => {
   const labelsQuery = useLabels();
 
   if (labelsQuery.isLoading) return <LoadingIcon />;

@@ -4,8 +4,8 @@ import { sleep } from "../../helpers/sleep";
 import { Label } from "../interfaces";
 
 const getLabelsIssues = async (): Promise<Label[]> => {
-  await sleep(1);
-  const { data } = await githubApi.get<Label[]>("/labels");
+  await sleep(2);
+  const { data } = await githubApi.get<Label[]>("/labels?per_page=100 ");
   return data;
 };
 

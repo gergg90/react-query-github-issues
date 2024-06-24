@@ -9,8 +9,7 @@ export const ListView = () => {
   const [selectedLabels, setSelectedLabels] = useState<string[]>([]);
 
   const [state, setState] = useState<State>();
-
-  const issuesQueryHook = useIssues();
+  const { issuesQuery } = useIssues({ state, labels: selectedLabels });
 
   const onLabelChange = (labelName: string) => {
     selectedLabels.includes(labelName)
@@ -21,13 +20,13 @@ export const ListView = () => {
   return (
     <div className="row mt-5">
       <div className="col-8">
-        {issuesQueryHook.isLoading ? (
+        {issuesQuery.isLoading ? (
           <LoadingIcon />
         ) : (
           <IssueList
             state={state}
             onStateChange={(newState) => setState(newState)}
-            issues={issuesQueryHook.data || []}
+            issues={issuesQuery.data || []}
           />
         )}
       </div>
