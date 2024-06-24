@@ -59,7 +59,20 @@ export const IssueItem = ({ issue }: Props) => {
             #{issue.number} opened {getDayAgo(issue.created_at)} by{" "}
             <span className="fw-bold">{issue.user.login}</span>
           </span>
-          <span>xx</span>
+          <div>
+            {issue.labels.map((label) => (
+              <span
+                key={label.id}
+                className={"badge rounded-pill m-1"}
+                style={{
+                  color: "black",
+                  backgroundColor: `#${label.color}`,
+                }}
+              >
+                {label.name}
+              </span>
+            ))}
+          </div>
         </div>
 
         <div className="d-flex align-items-center">
