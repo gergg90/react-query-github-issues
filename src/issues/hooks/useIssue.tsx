@@ -26,7 +26,7 @@ export const useIssue = (issueNumber: number) => {
   });
 
   const commentsQuery = useQuery({
-    queryKey: ["comments", issueNumber],
+    queryKey: ["issueComments", issueNumber],
     queryFn: () => getCommentInfo(issueQuery.data!.number),
     enabled: issueQuery.data !== undefined,
   });
