@@ -3,9 +3,12 @@ import LoadingIcon from "../../shared/components/LoadingIcon";
 import { IssueList } from "../components/IssueList";
 import { LabelPicker } from "../components/LabelPicker";
 import { useIssues } from "../hooks";
+import { State } from "../interfaces";
 
 export const ListView = () => {
   const [selectedLabels, setSelectedLabels] = useState<string[]>([]);
+
+  const [state, setState] = useState<State>();
 
   const issuesQueryHook = useIssues();
 
@@ -21,7 +24,11 @@ export const ListView = () => {
         {issuesQueryHook.isLoading ? (
           <LoadingIcon />
         ) : (
-          <IssueList issues={issuesQueryHook.data || []} />
+          <IssueList
+            state={state}
+            onStateChange={(newState) => setState(newState)}
+            issues={issuesQueryHook.data || []}
+          />
         )}
       </div>
 
