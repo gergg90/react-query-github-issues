@@ -1,5 +1,7 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { FiCheckCircle, FiInfo, FiMessageSquare } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import { getCommentInfo, getIssueInfo } from "../hooks";
 import { Issue, State } from "../interfaces";
 
 interface Props {
@@ -17,10 +19,24 @@ const getDayAgo = (dateString: Date): string => {
 
 export const IssueItem = ({ issue }: Props) => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const onMouseEnter = () => {
+    queryClient.prefetchQuery({
+      queryKey: ["issue", issue.number],
+      queryFn: () => getIssueInfo(issue.number),
+    });
+
+    queryClient.prefetchQuery({
+      queryKey: ["comments", issue.number],
+      queryFn: () => getCommentInfo(issue.number),
+    });
+  };
 
   return (
     <div
       onClick={() => navigate(`/issues/issue/${issue.number}`)}
+      onMouseEnter={onMouseEnter}
       className="card mb-2 issue"
     >
       <div className="card-body d-flex align-items-center">
