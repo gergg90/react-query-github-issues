@@ -35,7 +35,9 @@ export const IssueItem = ({ issue }: Props) => {
   };
 
   const preSetData = () => {
-    queryClient.setQueryData(["issue", issue.number], issue);
+    queryClient.setQueryData(["issue", issue.number], issue, {
+      updatedAt: new Date().getTime() + 10000,
+    });
   };
 
   return (
