@@ -1,21 +1,13 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { FiCheckCircle, FiInfo, FiMessageSquare } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import { timeSince } from "../../helpers/time-since";
 import { getCommentInfo, getIssueInfo } from "../hooks";
 import { Issue, State } from "../interfaces";
 
 interface Props {
   issue: Issue;
 }
-
-const getDayAgo = (dateString: Date): string => {
-  const date = new Date(dateString);
-  const now = new Date();
-  const diffTime = Math.abs(now.getTime() - date.getTime());
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 6 * 24));
-
-  return `${diffDays} days ago`;
-};
 
 export const IssueItem = ({ issue }: Props) => {
   const navigate = useNavigate();
@@ -56,7 +48,7 @@ export const IssueItem = ({ issue }: Props) => {
         <div className="d-flex flex-column flex-fill px-2">
           <span>{issue.title}</span>
           <span className="issue-subinfo">
-            #{issue.number} opened {getDayAgo(issue.created_at)} by{" "}
+            #{issue.number} opened {timeSince(issue.created_at)} by{" "}
             <span className="fw-bold">{issue.user.login}</span>
           </span>
           <div>
