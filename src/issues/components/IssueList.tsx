@@ -43,6 +43,11 @@ export const IssueList = ({ issues, state, onStateChange }: Props) => {
           <IssueItem issue={issue} key={issue.id} />
         ))}
       </div>
+      <div className="card-footer bg-dark d-flex justify-content-between align-items-center">
+        <button className="btn btn-primary">Prev</button>
+        <span>2</span>
+        <button className="btn btn-primary">Next</button>
+      </div>
     </div>
   );
 };
