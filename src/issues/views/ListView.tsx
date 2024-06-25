@@ -9,7 +9,10 @@ export const ListView = () => {
   const [selectedLabels, setSelectedLabels] = useState<string[]>([]);
 
   const [state, setState] = useState<State>();
-  const { issuesQuery } = useIssues({ state, labels: selectedLabels });
+  const { issuesQuery, page, nextPage, prevPage } = useIssues({
+    state,
+    labels: selectedLabels,
+  });
 
   const onLabelChange = (labelName: string) => {
     selectedLabels.includes(labelName)
@@ -24,6 +27,9 @@ export const ListView = () => {
           <LoadingIcon />
         ) : (
           <IssueList
+            nextPage={nextPage}
+            prevPage={prevPage}
+            page={page}
             state={state}
             onStateChange={(newState) => setState(newState)}
             issues={issuesQuery.data || []}
