@@ -5,19 +5,9 @@ interface Props {
   issues: Issue[];
   state?: State;
   onStateChange: (state?: State) => void;
-  page?: number;
-  nextPage: () => void;
-  prevPage: () => void;
 }
 
-export const IssueList = ({
-  issues,
-  state,
-  onStateChange,
-  page,
-  nextPage,
-  prevPage,
-}: Props) => {
+export const IssueList = ({ issues, state, onStateChange }: Props) => {
   return (
     <div className="card border-white">
       <div className="card-header bg-dark">
@@ -52,15 +42,6 @@ export const IssueList = ({
         {issues.map((issue) => (
           <IssueItem issue={issue} key={issue.id} />
         ))}
-      </div>
-      <div className="card-footer bg-dark d-flex justify-content-between align-items-center">
-        <button onClick={prevPage} className="btn btn-primary">
-          Prev
-        </button>
-        <span>{page}</span>
-        <button onClick={nextPage} className="btn btn-primary">
-          Next
-        </button>
       </div>
     </div>
   );

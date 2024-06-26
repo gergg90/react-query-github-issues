@@ -5,7 +5,7 @@ import { LabelPicker } from "../components/LabelPicker";
 import { useIssues } from "../hooks";
 import { State } from "../interfaces";
 
-export const ListView = () => {
+export const ListViewInfiniteScroll = () => {
   const [selectedLabels, setSelectedLabels] = useState<string[]>([]);
 
   const [state, setState] = useState<State>();
@@ -34,21 +34,7 @@ export const ListView = () => {
         )}
 
         <div className="card-footer bg-dark d-flex justify-content-between align-items-center pt-2">
-          <button
-            disabled={issuesQuery.isFetching}
-            onClick={prevPage}
-            className="btn btn-primary"
-          >
-            Prev
-          </button>
-          <span>{page}</span>
-          <button
-            disabled={issuesQuery.isFetching}
-            onClick={nextPage}
-            className="btn btn-primary"
-          >
-            Next
-          </button>
+          <button className="btn btn-primary">Load Data</button>
         </div>
       </div>
 
