@@ -34,7 +34,13 @@ export const ListViewInfiniteScroll = () => {
         )}
 
         <div className="card-footer bg-dark d-flex justify-content-between align-items-center pt-2">
-          <button className="btn btn-primary">Load more...</button>
+          <button
+            disabled={!issuesQueryInfinite.hasNextPage}
+            onClick={() => issuesQueryInfinite.fetchNextPage()}
+            className="btn btn-primary"
+          >
+            Load more...
+          </button>
         </div>
       </div>
 

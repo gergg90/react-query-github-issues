@@ -1,6 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { githubApi } from "../../apis/githubApi";
-import { sleep } from "../../helpers/sleep";
 import { Issue, State } from "../interfaces";
 
 interface Props {
@@ -10,18 +9,20 @@ interface Props {
 }
 
 interface QueryProps {
-  pageParams?: number;
+  pageParam?: number;
   queryKey: (string | Props)[];
 }
 
 const getIssuesInfinite = async ({
-  pageParams = 1,
+  pageParam = 1,
   queryKey,
 }: QueryProps): Promise<Issue[]> => {
-  await sleep(2);
+  // await sleep(2);
 
   const [, , args] = queryKey;
   const { state, labels } = args as Props;
+
+  console.log(labels.length);
 
   const params = new URLSearchParams();
 
@@ -31,7 +32,7 @@ const getIssuesInfinite = async ({
     params.append("labels", labelString);
   }
 
-  params.append("page", pageParams?.toString());
+  params.append("page", pageParam?.toString());
 
   params.append("per_page", "5");
 
@@ -43,11 +44,13 @@ const getIssuesInfinite = async ({
 
 export const useIssuesInfiniteScroll = ({ labels, state }: Props) => {
   const issuesQueryInfinite = useInfiniteQuery({
-    queryKey: ["issues", "infinite", { labels, state, page: 1 }],
+    queryKey: ["issues", "infinite", { labels, state }],
     queryFn: (data) => getIssuesInfinite(data),
     initialPageParam: 1,
-    getNextPageParam: (lastPage, allPages, lastPageParam, allPageParams) =>
-      undefined,
+    getNextPageParam: (lastPage, pages) => {
+      if (lastPage.length === 0) return;
+      return pages.length + 1;
+    },
   });
 
   return { issuesQueryInfinite };
