@@ -22,8 +22,6 @@ const getIssuesInfinite = async ({
   const [, , args] = queryKey;
   const { state, labels } = args as Props;
 
-  console.log(labels.length);
-
   const params = new URLSearchParams();
 
   if (state) params.append("state", state);
